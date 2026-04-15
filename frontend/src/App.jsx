@@ -3,6 +3,7 @@ import './App.css'
 import AppRoutes from './routes/AppRoutes'
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
+import Chatbot from './components/Chatbot'
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -20,6 +21,7 @@ function App() {
           <AppRoutes />
         </main>
       </div>
+      <Chatbot />
     </div>
   )
 }
