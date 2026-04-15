@@ -59,3 +59,37 @@
   font-weight: 700;
   font-size: 0.85rem;
 }
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+}
+
+.mobile-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 1rem;
+  }
+  .navbar-menu {
+    gap: 1rem;
+  }
+  .nav-text {
+    display: none;
+  }
+  .mobile-menu-btn {
+    display: block;
+  }
+  .btn-primary {
+    padding: 0.5rem;
+  }
+  .logo-text {
+    display: none;
+  }
+}

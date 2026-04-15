@@ -26,3 +26,25 @@
 .animate-fade-in {
   animation: fadeIn 0.4s ease-out forwards;
 }
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 95;
+  backdrop-filter: blur(2px);
+}
+
+@media (max-width: 768px) {
+  .sidebar-overlay {
+    display: block;
+  }
+  
+  .content {
+    padding: 1rem;
+  }
+}

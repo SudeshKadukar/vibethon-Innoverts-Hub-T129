@@ -32,7 +32,7 @@ export default function Game() {
         <p style={{ color: 'var(--text-muted)' }}>Learn AI/ML concepts through interactive games.</p>
       </header>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '2rem' }}>
         {gamesList.map(game => (
           <Card key={game.id} title={game.title} description={game.description} icon={game.icon}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1.5rem' }}>

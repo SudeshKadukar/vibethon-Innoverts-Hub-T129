@@ -14,7 +14,7 @@ export default function Simulation() {
         <p style={{ color: 'var(--text-muted)' }}>Apply your knowledge to real-world AI/ML scenarios.</p>
       </header>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '2rem' }}>
         {simulationData.map(sim => (
           <Card key={sim.id} title={sim.title} description={sim.description}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1.5rem' }}>

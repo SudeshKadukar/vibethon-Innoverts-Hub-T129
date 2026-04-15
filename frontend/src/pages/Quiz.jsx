@@ -2,14 +2,23 @@ import { useState } from 'react';
 import { quizData } from '../data/quizData';
 import QuizCard from '../components/QuizCard';
 import ProgressBar from '../components/ProgressBar';
-import { Brain, RotateCcw } from 'lucide-react';
+import Badge from '../components/Badge';
+import { Brain, RotateCcw, Trophy } from 'lucide-react';
+
+const levelColors = {
+  Basic: 'var(--success)',
+  Moderate: 'var(--warning)',
+  Advanced: 'var(--danger)',
+  Expert: '#a855f7'
+};
 
 export default function Quiz() {
   const [currentQ, setCurrentQ] = useState(0);
-  const [score, setScore] = useState(0);
+  const [correctCount, setCorrectCount] = useState(0);
   const [finished, setFinished] = useState(false);
 
-  const handleNext = () => {
+  const handleNext = (wasCorrect) => {
+    if (wasCorrect) setCorrectCount(c => c + 1);
     if (currentQ < quizData.length - 1) {
       setCurrentQ(i => i + 1);
     } else {
@@ -19,18 +28,30 @@ export default function Quiz() {
 
   const restart = () => {
     setCurrentQ(0);
-    setScore(0);
+    setCorrectCount(0);
     setFinished(false);
   };
 
+  const percentage = Math.round((correctCount / quizData.length) * 100);
+  const grade =
+    percentage >= 90 ? '🏆 Expert!' :
+    percentage >= 70 ? '🥇 Great!' :
+    percentage >= 50 ? '🥈 Good!' :
+    '📚 Keep Practicing!';
+
   if (finished) {
     return (
-      <div style={{ maxWidth: '600px', margin: '3rem auto', textAlign: 'center' }}>
+      <div style={{ maxWidth: '550px', margin: '3rem auto', textAlign: 'center' }}>
         <div className="glass-card" style={{ padding: '3rem' }}>
-          <Brain size={60} color="var(--primary)" style={{ marginBottom: '1.5rem' }} />
+          <Trophy size={64} color="var(--warning)" style={{ marginBottom: '1.5rem' }} />
           <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Quiz Complete!</h1>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>You answered all {quizData.length} questions.</p>
-          <button className="btn btn-primary" onClick={restart}>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>
+            You answered {correctCount} out of {quizData.length} correctly.
+          </p>
+          <div style={{ fontSize: '3rem', marginBottom: '0.5rem', fontWeight: '800' }}>{percentage}%</div>
+          <div style={{ fontSize: '1.5rem', marginBottom: '2rem' }}>{grade}</div>
+          <ProgressBar progress={percentage} color={percentage >= 70 ? 'var(--success)' : 'var(--warning)'} />
+          <button className="btn btn-primary" onClick={restart} style={{ marginTop: '2rem', width: '100%' }}>
             <RotateCcw size={18} /> Try Again
           </button>
         </div>
@@ -41,13 +62,21 @@ export default function Quiz() {
   const q = quizData[currentQ];
 
   return (
-    <div style={{ maxWidth: '700px', margin: '0 auto' }}>
+    <div style={{ maxWidth: '750px', margin: '0 auto' }}>
       <header style={{ marginBottom: '2rem' }}>
-        <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>AI/ML Knowledge Quiz</h1>
-        <ProgressBar progress={((currentQ) / quizData.length) * 100} label={`Question ${currentQ + 1} of ${quizData.length}`} />
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+          <h1 style={{ fontSize: '2rem' }}>🧠 AI/ML Quiz</h1>
+          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            <Badge text={q.level} color={levelColors[q.level] || 'var(--primary)'} />
+            <span style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
+              {currentQ + 1} / {quizData.length}
+            </span>
+          </div>
+        </div>
+        <ProgressBar progress={((currentQ) / quizData.length) * 100} />
       </header>
 
-      <QuizCard 
+      <QuizCard
         key={q.id}
         question={q.question}
         options={q.options}
