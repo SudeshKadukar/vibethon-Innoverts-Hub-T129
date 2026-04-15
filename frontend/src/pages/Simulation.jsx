@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import { simulationData } from '../data/simulationData';
 import Card from '../components/Card';
 import Badge from '../components/Badge';
 import { FlaskConical, Play } from 'lucide-react';
 
 export default function Simulation() {
+  const navigate = useNavigate();
+
   return (
     <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
       <header style={{ marginBottom: '3rem' }}>
@@ -25,7 +28,11 @@ export default function Simulation() {
                   color={sim.difficulty === 'Beginner' ? 'var(--success)' : sim.difficulty === 'Intermediate' ? 'var(--warning)' : 'var(--danger)'} 
                 />
               </div>
-              <button className="btn btn-primary" style={{ padding: '0.5rem 1.25rem' }}>
+              <button 
+                className="btn btn-primary" 
+                style={{ padding: '0.5rem 1.25rem' }}
+                onClick={() => navigate(`/simulation/${sim.id}`)}
+              >
                 <Play size={16} fill="currentColor" /> Launch
               </button>
             </div>

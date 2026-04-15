@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Card from '../components/Card';
 import Badge from '../components/Badge';
 import ProgressBar from '../components/ProgressBar';
@@ -14,6 +15,7 @@ const iconMap = {
 
 export default function Learn() {
   const [modules, setModules] = useState(localModules);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('http://localhost:5000/api/modules')
@@ -75,6 +77,7 @@ export default function Learn() {
               <button
                 className={`btn ${module.progress === 100 ? 'btn-secondary' : 'btn-primary'}`}
                 style={{ width: '100%', marginTop: 'auto' }}
+                onClick={() => navigate('/quiz')}
               >
                 {module.progress === 100 ? '✅ Review' : module.progress > 0 ? '▶ Continue' : '🚀 Start Learning'}
                 <Play size={14} fill="currentColor" />

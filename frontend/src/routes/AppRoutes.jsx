@@ -9,6 +9,7 @@ import Register from '../pages/Register'
 import Quiz from '../pages/Quiz'
 import Game from '../pages/Game'
 import Simulation from '../pages/Simulation'
+import SimulationViewer from '../pages/SimulationViewer'
 import SpamGame from '../games/SpamGame'
 import DecisionTreeGame from '../games/DecisionTreeGame'
 import ClassificationGame from '../games/ClassificationGame'
@@ -26,9 +27,11 @@ export default function AppRoutes() {
       <Route path="/quiz" element={<Quiz />} />
       <Route path="/games" element={<Game />} />
       <Route path="/simulation" element={<Simulation />} />
+      <Route path="/simulation/:id" element={<SimulationViewer />} />
       <Route path="/games/spam" element={<SpamGame />} />
       <Route path="/games/tree" element={<DecisionTreeGame />} />
       <Route path="/games/classify" element={<ClassificationGame />} />
     </Routes>
   )
 }
+
